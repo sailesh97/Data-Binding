@@ -38,5 +38,9 @@ export class ServerElementComponent implements OnInit {
    * 
    * But outside this component, element can be accessible by srvElement.
    */
+
+  /**
+   * @Input() and @Output() are decorators or functions. That's the reason we need to mention () after the word @Input and to execute the @input function we need to mention brackets after that.
+   */
 }
 
