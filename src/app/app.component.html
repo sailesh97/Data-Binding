@@ -13,3 +13,46 @@
     </div>
   </div>
 </div>
+
+
+<!-- 
+  Before Splitting our app component into cockpit & server-element component, we only had one template file i.e.; app.component.html
+  And we had two paragarphs there. We have applied a blue color styling to them in app.component.css.
+
+  Now the 1st paragraph (<p>) element moved to cockpit.component.html and 2nd ones goes to server-element.component.html
+
+  After splitting the component into cockpit and server-element; that blue color styling is not getting applied to the p elements.
+
+  But we still have that css rule in our app.component.css.
+
+  The variables we define in a component are only accessible inside those component. To make it accessible by other components, we need the help of @Input & @Output decorators.
+
+  Unlike the variables in Angular, css works differently. All our css files applies to the whole document object(DOM), normally. We have different specificity rules for css. Like the styles applied through id has a higher preference than applied through class.
+
+  So the css we wrote in app.component.css should get applied to cockpit component's and server-element compoent's template file as well
+
+  Why it's not getting applied?
+
+  So this behaviour is a feature provided by Angular. The default behaviour of browser is applying css from all files to whole document and if any element has conflicting css rules then the css specificity rules comes to play to decide which css styling will be applied to an element.
+
+  Reason:
+
+  If you inspect in devtools:
+  Angular attaches a special attribute to distinguish the templates of different components.
+
+  The attribute applied to p elements of server-element component will be different from attribute applied to p element of cockpit component.
+
+  For ex:
+
+  So p elements of app-component
+    p[app-comp-1]{color: blue}
+
+  p element of server-component
+    p[server-comp]{} -- no stylings applied to this p element
+
+  This way of distinguishing view of different component in Angular is known as View Encapsulation.
+
+  With this behaviour we can make sure that, whatever styling we define in a css file will only get applied to the component they belong to.
+
+  This behaviour emulates like a shadow dom. In shadow dom, each element has its own shadow dom behind it and you can assign a sepecific styling to each unique element.. But as all browsers doesn't support shadow dom. Angular emulates this as view encapsulation 
+ -->
