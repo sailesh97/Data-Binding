@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-server-element',
   templateUrl: './server-element.component.html',
-  styleUrls: ['./server-element.component.css']
+  styleUrls: ['./server-element.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ServerElementComponent implements OnInit {
 
@@ -41,6 +42,15 @@ export class ServerElementComponent implements OnInit {
 
   /**
    * @Input() and @Output() are decorators or functions. That's the reason we need to mention () after the word @Input and to execute the @input function we need to mention brackets after that.
+   */
+
+  /**
+   * Though viewEncapsulation is enabled in all angular components by default, we can regulate that behaviour as well through the encapsulation property in component decorator.
+   * 
+   * It gives us 3ways to reguate it
+   * i. ViewEncapsulation.Emulated ---> Default value
+   * ii. ViewEncapsulation.None ----> The styling of these component will be applied globally to the whole document. 
+   * iii. ViewEncapsulation.ShadowDOM ---> It is same as Emulated but will only reflect in browsers that support Shadow DOM. All browsers doesn't support.
    */
 }
 
