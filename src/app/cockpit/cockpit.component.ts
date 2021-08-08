@@ -70,4 +70,17 @@ export class CockpitComponent implements OnInit {
    * 
    * There are better ways of accessing the DOM in Angular that we will learn in directives section.
    */
+
+  /**
+   * Summary:
+   *  ngModel, local reference and ViewChild solves similar problem. 
+   * 
+   * Through ngModel directive we can bind our UI HTML elements with typescript code directly.
+   * 
+   * Through local ref we can have access to a HTML Element and all its properties. but can only be used inside template file.
+   *  To use that inside ts code we need to pass the reference through a function
+   * 
+   * Through ViewChild: we can directly access any HTML element inside our ts code. We don't need to pass it through a function.
+   * 
+   */
 }
