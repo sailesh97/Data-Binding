@@ -50,6 +50,11 @@
   p element of server-component
     p[server-comp]{} -- no stylings applied to this p element
 
+  Note:
+    * Angular gives the same attribute to all HTML elements of a component.
+    * It does this for each component with different unique attribute.
+    * Angular once changed your style selector(p{color: blue} to p[app-comp-1]{color: blue}); it automatically adds these attribute selector(app-comp-1) to all HTML element of that component to which the style rules you defined.
+    
   This way of distinguishing view of different component in Angular is known as View Encapsulation.
 
   With this behaviour we can make sure that, whatever styling we define in a css file will only get applied to the component they belong to.
