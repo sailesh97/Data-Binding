@@ -6,7 +6,8 @@
       <input type="text" class="form-control" #serverNameInput>
       <!-- <label for="">{{serverNameInput.value}}</label> -->
       <label>Server Content</label>
-      <input type="text" class="form-control" [(ngModel)]="newServerContent">
+      <input type="text" class="form-control" #serverContentInput2>
+      <!-- <input type="text" class="form-control" [(ngModel)]="newServerContent"> -->
       <br>
       <button
         class="btn btn-primary"
@@ -37,5 +38,17 @@
   It can be used anywhere the template file(html file), but not in your typescript code. You can pass it to your ts code though through events.
 
   As it holds the whole html element with all its properties and we're passing a input element here and all input element in html has a value property, we can use that in onAddServer to pass it to communicate with our parent component i.e. app-component.
+
+ -->
+
+ <!--
+   There's another way of accessing any HTML element from your template inside your typescript code other than local references.
+
+   Here we pass a local ref through a function that is bind a  click event of a button. In some scenarios we may need the local ref even before user do something or interact with website.
+
+   In those scenarios we can use @ViewChild() decorator.
+
+   Let's do that for servreContent input element @ViewChild() as well
+
 
  -->
