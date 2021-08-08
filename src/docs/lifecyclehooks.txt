@@ -1,0 +1,47 @@
+Whenever a new component is created in Angular, when it finds one of our selectors:
+It will instantiate a new version of that component and add it into the DOM, it goes through a couple of lifecycle hooks.
+
+We can hook into these couple of phases of component creation process by implementing these lifecycle methods.
+
+Angular will call our own implemention of these methods if present in our code. 
+
+Lifecycle hooks:
+ 
+1. ngOnChanges: called after a bound input property changes.
+ It is called multiple times.
+ Called at the start when a new component is created and thereafter whenever a bound input property changes.
+
+ What I mean here is properties with @Input().
+
+ Whenever these properties receives new values.
+------------------------------------------------------------------
+2. ngOnInit: called once the component is initialized.
+This does not mean we can see it. It has not been added to the DOM yet. But Angular finished the basic initialization
+Our properties can now be accessed and initialized. So the object was created.
+
+ngOnInit will run after the constructor.
+
+------------------------------------------------------------------
+
+3. ngDoCheck: Called during every change detection run
+ Called multiple time. Actually this will run a lot as this will run whenever change detection runs.
+
+ Change Detection: It's a system by which Angular determines whether something changed on the template of a component or inside of a component.
+ Whether Angular need to change something in the template. Whether some property value changed and that property is output on the UI.
+Angular needs to rerender that part of the template.
+
+ngDoCheck will run irrespective of any real change. Angular will check everytime user inteacts with UI, If any property changed it will render otherwise it won't.
+
+But it has to check everytime to know whether the property value has changed or not.
+ex: Clicked Somewhere, a timer fired, an observable resolved etc
+------------------------------------------------------------------
+
+4. ngAfterContentInit: Called after content (ng-content) has been projected into view.
+
+5. ngAfterContentChecked: Called every time the projected content has been checked.
+
+6. ngAfterViewInit: Called after the component's view (and child views) has been initialized.
+
+7. ngAfterViewChecked: Called everytime the (and child views) have been checked.
+
+8. ngOnDestroy: Called once the component is about to be destroyed.
