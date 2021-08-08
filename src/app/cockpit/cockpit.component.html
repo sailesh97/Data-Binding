@@ -2,15 +2,40 @@
     <div class="col-xs-12">
       <p>Add new Servers or blueprints!</p>
       <label>Server Name</label>
-      <input type="text" class="form-control" [(ngModel)]="newServerName">
+      <!-- <input type="text" class="form-control" [(ngModel)]="newServerName"> -->
+      <input type="text" class="form-control" #serverNameInput>
+      <!-- <label for="">{{serverNameInput.value}}</label> -->
       <label>Server Content</label>
       <input type="text" class="form-control" [(ngModel)]="newServerContent">
       <br>
       <button
         class="btn btn-primary"
-        (click)="onAddServer()">Add Server</button>
+        (click)="onAddServer(serverNameInput)">Add Server</button>
       <button
         class="btn btn-primary"
-        (click)="onAddBlueprint()">Add Server Blueprint</button>
+        (click)="onAddBlueprint(serverNameInput)">Add Server Blueprint</button>
     </div>
 </div>
+
+<!-- 
+  Though we have used two-way data binding here for getting the newServerName and newServerContent. We can do the same in another way too.
+  
+  Our goal is to get the value of the input elements used here at the time we click the Add buttons.
+
+  We can achieve this using local reference. Let's do that for serverName
+
+  A local reference can be placed on any HTML element. Not only on input element but any element.
+  
+  It starts with a # and then a name of your choice after that.
+
+  A local reference holds a reference to the HTML element it is placed on with all it's native properties.
+
+  You can check what it contains by passing it on to onAddServer method and then logging it on console.
+
+  Another important thing about local references is:
+
+  It can be used anywhere the template file(html file), but not in your typescript code. You can pass it to your ts code though through events.
+
+  As it holds the whole html element with all its properties and we're passing a input element here and all input element in html has a value property, we can use that in onAddServer to pass it to communicate with our parent component i.e. app-component.
+
+ -->
