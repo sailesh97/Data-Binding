@@ -2,8 +2,19 @@
     <div class="panel-heading">{{ element.name }}</div>
     <div class="panel-body">
         <p>
-            <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
-            <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
+            <ng-content></ng-content>
         </p>
     </div>
 </div>
+
+<!-- 
+    Another default behaviour by angular is, anything you place inside opening and closing bracket of our component selector are lost by default. 
+    That is simply removed from DOM and Angular will not take care of that.  But we can change this behaviour by placing ng-content "directive" in our child component.  
+-->
+
+<!--
+    In some scenarios we get our HTML code from a 3rd party source, in those cases ng-content will be helpful
+
+    Though we can pass it as a string from parent comp to child comp through property binding. Angular may not allow HTML tags in property binding to protect our app from cross-site scripting
+    
+-->
