@@ -36,7 +36,7 @@ But it has to check everytime to know whether the property value has changed or 
 ex: Clicked Somewhere, a timer fired, an observable resolved etc
 ------------------------------------------------------------------
 
-4. ngAfterContentInit: Called after content (ng-content) has been projected into view.
+4. ngAfterContentInit: Called after content (ng-content) has been projected into view. Called only once.
 
 5. ngAfterContentChecked: Called every time the projected content has been checked.
 
@@ -45,3 +45,30 @@ ex: Clicked Somewhere, a timer fired, an observable resolved etc
 7. ngAfterViewChecked: Called everytime the (and child views) have been checked.
 
 8. ngOnDestroy: Called once the component is about to be destroyed.
+
+----------------- Sequence of lifecycle hooks ----------------------
+
+1. constructor 
+2. ngOnChanges
+3. ngOnInit
+4. ngDoCheck
+5. ngAfterContentInit
+6. ngAfterContentChecked
+7. ngAfterViewInit
+8. ngAfterViewChecked
+9. ngOnDestroy - When you remove an object of your custom component type. It will destroy the component and before destroying it will run this hook.
+
+---------------------------------------------------------------------
+
+ngOnChanges is the only hook that receives an arguement of type: SimpleChanges.
+The arguement is an object containing all the properties with @Input decorator and information about those properties(currentValue, previousValue, firstChange).
+
+
+Good Practice: 
+------------
+If you're using a lifecycle hook make sure yor implement it's corresponding interface in your class definition.
+
+Class ServerElement implement OnChanges, OnInit{
+    ngOnInit(){......your code}
+    ngOnChanges(){......your code}
+}
