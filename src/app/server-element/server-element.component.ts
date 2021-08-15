@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, DoCheck, AfterContentInit, AfterContentChecked, ContentChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, DoCheck, AfterContentInit, AfterContentChecked, ContentChild, ElementRef, AfterViewInit, AfterViewChecked, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-server-element',
@@ -6,12 +6,13 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, 
   styleUrls: ['./server-element.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ServerElementComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked {
+export class ServerElementComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
 
   @Input("srvElement") element: {type: string, name: string, content: string};
   @Input() name: string;
   element2: {type: string, name: string, content: string};
   @ContentChild("contentParagraph",{static: true}) paragraph: ElementRef;
+  @ViewChild("heading", {static: true}) header: ElementRef; 
   constructor() { 
     console.log("Constructor Called")
   }
@@ -22,7 +23,8 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck, After
 
   ngOnInit(): void {
     console.log("ngOnInit Called");
-    console.log("Text content of paragraph in ngOnInit: ", this.paragraph.nativeElement.textContent);
+    console.log("Using ContentChild, Text content of paragraph in ngOnInit: ", this.paragraph.nativeElement.textContent);
+    console.log("Using ViewChild, Text content of header in ngOnInit: ", this.header.nativeElement.textContent);
   }
 
   ngDoCheck(){
@@ -42,6 +44,20 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck, After
   ngAfterContentChecked(){
     console.log("ngAfterContentChecked called"); 
     /** Like ngDoCheck, It's called after each change detection cycle, but for the content projected through ng-content. */
+  }
+
+  ngAfterViewInit(){
+    console.log("ngAfterViewInit called");
+    console.log("Using ViewChild, Text content of header in ngAfterViewInit: ", this.header.nativeElement.textContent);
+  }
+
+  ngAfterViewChecked(){
+    console.log("ngAfterViewChecked called");
+    /** ngAfterViewInit and ngAfterViewChecked are called only after ngAfterContentInit and ngAfterContentChecked respectively.*/
+    /** Like we can access any element passed to child component through ng-content by using @ContentChild() in ngContentInit and ngContentChecked;
+     * We can access any template of this component by using @ViewChild() and use its properties only after ngAfterViewInit and ngAfterViewChecked.
+     * Let's put a local reference in server-element.component.html and access it through ViewChild and use it in hooks called before and after ngAfterViewInit.
+     */
   }
 
   /**
