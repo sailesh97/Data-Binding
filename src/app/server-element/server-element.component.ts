@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, DoCheck } from '@angular/core';
 
 @Component({
   selector: 'app-server-element',
@@ -6,7 +6,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation }
   styleUrls: ['./server-element.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ServerElementComponent implements OnInit, OnChanges {
+export class ServerElementComponent implements OnInit, OnChanges, DoCheck {
 
   @Input("srvElement") element: {type: string, name: string, content: string};
   @Input() name: string;
@@ -24,6 +24,13 @@ export class ServerElementComponent implements OnInit, OnChanges {
     console.log("ngOnInit Called")
   }
 
+  ngDoCheck(){
+    console.log("ngDoCheck called");
+    /**Called whenever Angular checks for any changes.
+     * ex: Event triggered, Promise resolved, By clicking any button. 
+     * You shouldn't write any code here, if your need can be handled any other way as it may cost you a lot of performance.
+     */
+  }
 
   /**
    * The difference between element and element2 is that, element is accessible by outside(by other elements);
