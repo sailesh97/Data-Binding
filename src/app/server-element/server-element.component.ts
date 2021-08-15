@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, DoCheck, AfterContentInit, AfterContentChecked, ContentChild, ElementRef, AfterViewInit, AfterViewChecked, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, DoCheck, AfterContentInit, AfterContentChecked, ContentChild, ElementRef, AfterViewInit, AfterViewChecked, ViewChild, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-server-element',
@@ -6,7 +6,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, 
   styleUrls: ['./server-element.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ServerElementComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
+export class ServerElementComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
 
   @Input("srvElement") element: {type: string, name: string, content: string};
   @Input() name: string;
@@ -58,6 +58,11 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck, After
      * We can access any template of this component by using @ViewChild() and use its properties only after ngAfterViewInit and ngAfterViewChecked.
      * Let's put a local reference in server-element.component.html and access it through ViewChild and use it in hooks called before and after ngAfterViewInit.
      */
+  }
+
+  ngOnDestroy(){
+    console.log("ngOnDestroy called");
+    /** When we deleted an element from the serverElement array, an object of this server-element class will be destroyed. So before deleting ngOnDestroy hook will be called. */
   }
 
   /**
