@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, DoCheck } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, DoCheck, AfterContentInit, AfterContentChecked, ContentChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-server-element',
@@ -6,12 +6,12 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, ViewEncapsulation, 
   styleUrls: ['./server-element.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ServerElementComponent implements OnInit, OnChanges, DoCheck {
+export class ServerElementComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked {
 
   @Input("srvElement") element: {type: string, name: string, content: string};
   @Input() name: string;
   element2: {type: string, name: string, content: string};
-
+  @ContentChild("contentParagraph",{static: true}) paragraph: ElementRef;
   constructor() { 
     console.log("Constructor Called")
   }
@@ -21,7 +21,8 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit Called")
+    console.log("ngOnInit Called");
+    console.log("Text content of paragraph in ngOnInit: ", this.paragraph.nativeElement.textContent);
   }
 
   ngDoCheck(){
@@ -30,6 +31,17 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck {
      * ex: Event triggered, Promise resolved, By clicking any button. 
      * You shouldn't write any code here, if your need can be handled any other way as it may cost you a lot of performance.
      */
+  }
+
+  ngAfterContentInit(){
+    console.log("ngAfterContentInit called");
+    /** It's called only once. It's called after the content(ng-content) is projected into our view from it's parent component(app-component). It doesn't get initialized again. */
+    console.log("Text content of paragraph in ngAfterContentInit: ", this.paragraph.nativeElement.textContent);
+  }
+
+  ngAfterContentChecked(){
+    console.log("ngAfterContentChecked called"); 
+    /** Like ngDoCheck, It's called after each change detection cycle, but for the content projected through ng-content. */
   }
 
   /**
@@ -113,4 +125,16 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck {
  *  This time the firstChange in the ngOnChnages arguement will be false.
  * 
  * As on the click listener we changed the Value to  "Changed!", for the 1st click it's a different value than original, But for 2nd time click or 3rd time or onwards the name is same and not changed. That's why it won't trigger ngOnChnages for 2n time onwards clicks.
+ */
+
+/**
+ * ngContentInit and ngContentChecked are useful when we pass any HTML as content, between our custom selector. We have passed some HTML inside server-element selector of app-component.
+ * Which is catched in child(server-element) through ng-content.
+ * 
+ * To demonstrate the usefulness of ngContentInit and ngContentChecked let's put a local reference ("contentParagraph") in app-component's content
+ * 
+ * Now this paragraph with local reference #contentParagraph can be accessed in app-component through @ViewChild(), 
+ * But to access this in server-element we need to use @ContentChild(). If you want to access the properties of that paragraph element in server-element component, it can only be accessible in ngContentInit and the other lifecycle hooks that run after ngContentInit. It won't be accessible ngOnInit or any other hook that run before ngContentInit.
+ * 
+ * ngContentChecked is run after each change detection cycle.
  */
